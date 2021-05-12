@@ -1,0 +1,3 @@
+Address Book Data(firstname = Virat lastname = Kohli address = Saket vihar city = Delhi state = Delhi zip = 400112 phone number = 7788554466 email = viratkohli@gmail.com)
+Address Book Data(firstname = Rohit lastname = Sharma address = Bandra city = Mumbai state = MH zip = 411112 phone number = 7788112233 email = rohitsharma@gmail.com)
+Address Book Data(firstname = Ravindra lastname = Jadeja address = Kalvad Road city = Jamnagar state = Gujarat zip = 423568 phone number = 9988776655 email = ravindrajadeja@gmail.com)
