@@ -61,4 +61,15 @@ public class AddressBookTest {
         List<AddressBookData> addressBookData = addressBook.readAddressBookDataDB(DB_IO);
         Assert.assertEquals(5, addressBookData.size());
     }
+
+    //UC-17
+    @Test
+    public void givenNewPhoneNumberForPerson_WhenUpdatedUsingPreparedStatement_ShouldSyncWithDB() {
+        AddressBook addressBook = new AddressBook();
+        addressBook.readAddressBookDataDB(DB_IO);
+        addressBook.updateAddressBook("Mohit Shah", "1234567890");
+        boolean result = addressBook.checkAddressBookInSyncWithDB("Mohit Shah");
+        Assert.assertTrue(result);
+    }
+
 }

@@ -13,13 +13,19 @@ public class AddressBook {
         CONSOLE_IO, FILE_IO, CSV_FILE, JSON_FILE, DB_IO
     }
     private List<AddressBookData> addressBookDataList;
+    private AddressBookDB addressBookDB;
+
+    public AddressBook(){
+        addressBookDB = AddressBookDB.getInstance();
+    }
 
     public AddressBook(List<AddressBookData> addressBookDataList) {
         this.addressBookDataList = addressBookDataList;
     }
-    public AddressBook(){}
 
     public void readAddressBookData(Scanner consoleInputReader) {
+        System.out.println("Enter name");
+        String name = consoleInputReader.next();
         System.out.println("Enter firstname");
         String firstName = consoleInputReader.next();
         System.out.println("Enter lastname");
@@ -38,7 +44,7 @@ public class AddressBook {
         String email = consoleInputReader.next();
         System.out.println("Enter type");
         Integer type = consoleInputReader.nextInt();
-        addressBookDataList.add(new AddressBookData(type,firstName,lastName,address,city,state,zip,phoneNumber,email));
+        addressBookDataList.add(new AddressBookData(type,name,firstName,lastName,address,city,state,zip,phoneNumber,email));
     }
 
     //UC-13
@@ -90,9 +96,32 @@ public class AddressBook {
     //UC-16
     public List<AddressBookData> readAddressBookDataDB(IOService ioService){
         if(ioService.equals(IOService.DB_IO))
-            this.addressBookDataList = new AddressBookDB().readData();
+            this.addressBookDataList = addressBookDB.readData();
         return this.addressBookDataList;
     }
+
+    //UC-17
+    public void updateAddressBook(String name, String phoneNumber) {
+        int result = addressBookDB.updateAddressBookData(name,phoneNumber);
+        if(result == 0)
+            return;
+        AddressBookData addressBookData = this.getAddressBookData(name);
+        if(addressBookData != null)
+            addressBookData.phoneNumber = phoneNumber;
+    }
+
+    private AddressBookData getAddressBookData(String name) {
+        return this.addressBookDataList.stream()
+                .filter(addressBookDataListItem -> addressBookDataListItem.name.equals(name))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public boolean checkAddressBookInSyncWithDB(String name) {
+        List<AddressBookData> addressBookDataList = addressBookDB.getAddressBookData(name);
+        return addressBookDataList.get(0).equals(getAddressBookData(name));
+    }
+    //END OF UC-17
 
     public long countEntries(IOService ioService) {
         if (ioService.equals(IOService.FILE_IO))
