@@ -3,6 +3,8 @@ package com.bridgelabz.addressbook;
 import org.junit.Assert;
 import org.junit.Test;
 import java.util.Arrays;
+
+import static com.bridgelabz.addressbook.AddressBook.IOService.CSV_FILE;
 import static com.bridgelabz.addressbook.AddressBook.IOService.FILE_IO;
 
 public class AddressBookTest {
@@ -15,7 +17,6 @@ public class AddressBookTest {
                 new AddressBookData("Rohit","Sharma","Bandra","Mumbai","MH",411112,"7788112233","rohitsharma@gmail.com"),
                 new AddressBookData("Ravindra","Jadeja","Kalvad Road","Jamnagar","Gujarat",423568,"9988776655","ravindrajadeja@gmail.com"),
         };
-
         AddressBook addressBook;
         addressBook = new AddressBook(Arrays.asList(addressBookData));
         addressBook.writeAddressBookData(FILE_IO);
@@ -25,4 +26,15 @@ public class AddressBookTest {
         addressBook.printData(FILE_IO);
         Assert.assertEquals(3,entries);
     }
+
+    //UC-14
+    @Test
+    public void givenContactWhenReadFromCSVFile_shouldMatchWithFile() throws ContactException {
+        AddressBook addressBook;
+        addressBook = new AddressBook();
+        addressBook.writeCSVAddressBookData(CSV_FILE);
+        int entries = addressBook.readCSVAddressBookData(CSV_FILE);
+        Assert.assertEquals(3,entries);
+    }
+
 }

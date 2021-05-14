@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AddressBook {
+
+    public static final String CSV_FILE_PATH = "address-book.csv";
     public enum IOService {
-        CONSOLE_IO, FILE_IO
+        CONSOLE_IO, FILE_IO, CSV_FILE
     }
 
     private List<AddressBookData> addressBookDataList;
@@ -14,6 +16,7 @@ public class AddressBook {
     public AddressBook(List<AddressBookData> addressBookDataList) {
         this.addressBookDataList = addressBookDataList;
     }
+    public AddressBook(){}
 
     public void readAddressBookData(Scanner consoleInputReader) {
         System.out.println("Enter firstname");
@@ -42,10 +45,25 @@ public class AddressBook {
             new AddressBookFileIO().writeData(addressBookDataList);
     }
 
+    //UC-14
+    public void writeCSVAddressBookData(IOService ioService) {
+        if (ioService.equals(IOService.CONSOLE_IO))
+            System.out.println("\nWriting Address Book Roaster to Console\n" + addressBookDataList);
+        else
+            new AddressBookCSV().writeCSVData();
+    }
+
     public long readAddressBookData(IOService ioService) {
         if (ioService.equals(IOService.FILE_IO))
             this.addressBookDataList = new AddressBookFileIO().readData();
         return addressBookDataList.size();
+    }
+
+    //UC 14
+    public int readCSVAddressBookData(IOService ioService) throws ContactException {
+        if (ioService.equals(IOService.CONSOLE_IO))
+            new AddressBookCSV().readData(CSV_FILE_PATH);
+        return AddressBookCSV.readData(CSV_FILE_PATH);
     }
 
     public long countEntries(IOService ioService) {
