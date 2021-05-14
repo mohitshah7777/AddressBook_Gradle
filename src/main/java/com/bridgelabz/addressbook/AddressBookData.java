@@ -1,6 +1,9 @@
 package com.bridgelabz.addressbook;
 
+import java.util.Objects;
+
 public class AddressBookData {
+    public String name;
     public String firstName;
     public String lastName;
     public String address;
@@ -11,8 +14,9 @@ public class AddressBookData {
     public String email;
     public int type;
 
-    public AddressBookData(int type,String firstName, String lastName, String address, String city, String state, int zip, String phoneNumber, String email) {
+    public AddressBookData(int type,String name,String firstName, String lastName, String address, String city, String state, int zip, String phoneNumber, String email) {
         this.type=type;
+        this.name=name;
         this.firstName=firstName;
         this.lastName=lastName;
         this.address=address;
@@ -36,7 +40,23 @@ public class AddressBookData {
 
     @Override
     public String toString(){
-        return "Address Book Data"+"(firstname = "+firstName+" lastname = "+lastName+" address = "+address+" city = "+
+        return "Address Book Data"+"(name "+name + "firstname = "+firstName+" lastname = "+lastName+" address = "+address+" city = "+
                 city+" state = "+state+" zip = "+zip+" phone number = "+phoneNumber+" email = "+email+" type"+type+")";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AddressBookData addressBookData = (AddressBookData) o;
+        return zip == addressBookData.zip && Objects.equals(name, addressBookData.name) &&
+                Objects.equals(firstName, addressBookData.firstName) &&
+                Objects.equals(lastName, addressBookData.lastName) &&
+                Objects.equals(address, addressBookData.address) &&
+                Objects.equals(city, addressBookData.city) &&
+                Objects.equals(state, addressBookData.state) &&
+                Objects.equals(phoneNumber, addressBookData.phoneNumber) &&
+                Objects.equals(email, addressBookData.email) &&
+                Objects.equals(type, addressBookData.type);
     }
 }
