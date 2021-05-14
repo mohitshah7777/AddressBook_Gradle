@@ -10,12 +10,13 @@ public class AddressBook {
     public static final String JSON_FILE_PATH = "address-book.json";
 
     public enum IOService {
-        CONSOLE_IO, FILE_IO, CSV_FILE, JSON_FILE
+        CONSOLE_IO, FILE_IO, CSV_FILE, JSON_FILE, DB_IO
     }
-
     private List<AddressBookData> addressBookDataList;
 
-    public AddressBook(List<AddressBookData> addressBookDataList) { this.addressBookDataList = addressBookDataList; }
+    public AddressBook(List<AddressBookData> addressBookDataList) {
+        this.addressBookDataList = addressBookDataList;
+    }
     public AddressBook(){}
 
     public void readAddressBookData(Scanner consoleInputReader) {
@@ -35,7 +36,9 @@ public class AddressBook {
         String phoneNumber = consoleInputReader.next();
         System.out.println("Enter email");
         String email = consoleInputReader.next();
-        addressBookDataList.add(new AddressBookData(firstName,lastName,address,city,state,zip,phoneNumber,email));
+        System.out.println("Enter type");
+        Integer type = consoleInputReader.nextInt();
+        addressBookDataList.add(new AddressBookData(type,firstName,lastName,address,city,state,zip,phoneNumber,email));
     }
 
     //UC-13
@@ -82,6 +85,13 @@ public class AddressBook {
         if (ioService.equals(IOService.CONSOLE_IO))
             new AddressBookJSON().readData(JSON_FILE_PATH);
         AddressBookJSON.readData(JSON_FILE_PATH);
+    }
+
+    //UC-16
+    public List<AddressBookData> readAddressBookDataDB(IOService ioService){
+        if(ioService.equals(IOService.DB_IO))
+            this.addressBookDataList = new AddressBookDB().readData();
+        return this.addressBookDataList;
     }
 
     public long countEntries(IOService ioService) {
