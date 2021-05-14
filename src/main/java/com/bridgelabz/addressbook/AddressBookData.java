@@ -1,7 +1,5 @@
 package com.bridgelabz.addressbook;
 
-import java.util.List;
-
 public class AddressBookData {
     public String firstName;
     public String lastName;

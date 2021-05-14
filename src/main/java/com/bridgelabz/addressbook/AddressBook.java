@@ -7,15 +7,15 @@ import java.util.Scanner;
 public class AddressBook {
 
     public static final String CSV_FILE_PATH = "address-book.csv";
+    public static final String JSON_FILE_PATH = "address-book.json";
+
     public enum IOService {
-        CONSOLE_IO, FILE_IO, CSV_FILE
+        CONSOLE_IO, FILE_IO, CSV_FILE, JSON_FILE
     }
 
     private List<AddressBookData> addressBookDataList;
 
-    public AddressBook(List<AddressBookData> addressBookDataList) {
-        this.addressBookDataList = addressBookDataList;
-    }
+    public AddressBook(List<AddressBookData> addressBookDataList) { this.addressBookDataList = addressBookDataList; }
     public AddressBook(){}
 
     public void readAddressBookData(Scanner consoleInputReader) {
@@ -38,6 +38,7 @@ public class AddressBook {
         addressBookDataList.add(new AddressBookData(firstName,lastName,address,city,state,zip,phoneNumber,email));
     }
 
+    //UC-13
     public void writeAddressBookData(IOService ioService) {
         if (ioService.equals(IOService.CONSOLE_IO))
             System.out.println("\nWriting Address Book Roaster to Console\n" + addressBookDataList);
@@ -53,17 +54,34 @@ public class AddressBook {
             new AddressBookCSV().writeCSVData();
     }
 
+    //UC-15
+    public boolean writeJSONAddressBookData(IOService ioService) {
+        if (ioService.equals(IOService.CONSOLE_IO))
+            System.out.println("\nWriting Address Book Roaster to Console\n" + addressBookDataList);
+        else
+            new AddressBookJSON().writeData(addressBookDataList);
+            return true;
+    }
+
+    //UC-13
     public long readAddressBookData(IOService ioService) {
         if (ioService.equals(IOService.FILE_IO))
             this.addressBookDataList = new AddressBookFileIO().readData();
         return addressBookDataList.size();
     }
 
-    //UC 14
+    //UC-14
     public int readCSVAddressBookData(IOService ioService) throws ContactException {
         if (ioService.equals(IOService.CONSOLE_IO))
             new AddressBookCSV().readData(CSV_FILE_PATH);
         return AddressBookCSV.readData(CSV_FILE_PATH);
+    }
+
+    //UC-15
+    public void readJSONAddressBookData(IOService ioService) {
+        if (ioService.equals(IOService.CONSOLE_IO))
+            new AddressBookJSON().readData(JSON_FILE_PATH);
+        AddressBookJSON.readData(JSON_FILE_PATH);
     }
 
     public long countEntries(IOService ioService) {
