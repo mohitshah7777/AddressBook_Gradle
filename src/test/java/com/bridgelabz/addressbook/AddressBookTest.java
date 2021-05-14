@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static com.bridgelabz.addressbook.AddressBook.IOService.*;
 
@@ -51,5 +52,13 @@ public class AddressBookTest {
         addressBook.readJSONAddressBookData(JSON_FILE);
         boolean result = addressBook.writeJSONAddressBookData(JSON_FILE);
         Assert.assertTrue(result);
+    }
+
+    //UC-16
+    @Test
+    public void contactsWhenRetrievedFromDB_ShouldMatchCount() {
+        AddressBook addressBook = new AddressBook();
+        List<AddressBookData> addressBookData = addressBook.readAddressBookDataDB(DB_IO);
+        Assert.assertEquals(5, addressBookData.size());
     }
 }
