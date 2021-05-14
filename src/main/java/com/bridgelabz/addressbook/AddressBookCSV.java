@@ -24,9 +24,9 @@ public class AddressBookCSV {
             csvWriter.writeNext(HEADER);
 
             List<String[]> list = new ArrayList<>();
-            list.add(new String[] {"Virat","Kohli","Saket vihar","Delhi", "Delhi","400112","7788554466","viratkohli@gmail.com"});
-            list.add(new String[] {"Rohit","Sharma","Bandra","Mumbai","MH","411112","7788112233","rohitsharma@gmail.com"});
-            list.add(new String[] {"Ravindra","Jadeja","Kalvad Road","Jamnagar","Gujarat","423568","9988776655","ravindrajadeja@gmail.com"});
+            list.add(new String[]{"Virat", "Kohli", "Saket vihar", "Delhi", "Delhi", "400112", "7788554466", "viratkohli@gmail.com"});
+            list.add(new String[]{"Rohit", "Sharma", "Bandra", "Mumbai", "MH", "411112", "7788112233", "rohitsharma@gmail.com"});
+            list.add(new String[]{"Ravindra", "Jadeja", "Kalvad Road", "Jamnagar", "Gujarat", "423568", "9988776655", "ravindrajadeja@gmail.com"});
 
             csvWriter.writeAll(list);
             csvWriter.flush();
@@ -36,7 +36,7 @@ public class AddressBookCSV {
         }
     }
 
-    public static int readData(String filePathCSV) throws ContactException {
+    public static int readData (String filePathCSV) throws ContactException {
         try (Reader reader = Files.newBufferedReader(Paths.get(filePathCSV))) {
             CsvToBean<ContactCSV> csvToBean = new CsvToBeanBuilder<ContactCSV>(reader)
                     .withType(ContactCSV.class)

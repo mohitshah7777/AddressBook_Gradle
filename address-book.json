@@ -1,0 +1,32 @@
+[
+  {
+    "firstName": "Virat",
+    "lastName": "Kohli",
+    "address": "Saket vihar",
+    "city": "Delhi",
+    "state": "Delhi",
+    "zip": 400112,
+    "phoneNumber": "7788554466",
+    "email": "viratkohli@gmail.com"
+  },
+  {
+    "firstName": "Rohit",
+    "lastName": "Sharma",
+    "address": "Bandra",
+    "city": "Mumbai",
+    "state": "MH",
+    "zip": 411112,
+    "phoneNumber": "7788112233",
+    "email": "rohitsharma@gmail.com"
+  },
+  {
+    "firstName": "Ravindra",
+    "lastName": "Jadeja",
+    "address": "Kalvad Road",
+    "city": "Jamnagar",
+    "state": "Gujarat",
+    "zip": 423568,
+    "phoneNumber": "9988776655",
+    "email": "ravindrajadeja@gmail.com"
+  }
+]
