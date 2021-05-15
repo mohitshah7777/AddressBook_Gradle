@@ -10,15 +10,15 @@ import java.util.List;
 public class AddressBookFileIO {
     public static String ADDRESS_BOOK_FILE = "address-book-file.txt";
 
-    public void writeData(List<AddressBookData> employeePayrollList) {
-        StringBuffer empBuffer = new StringBuffer();
-        employeePayrollList.forEach(employee -> {
-            String employeeDataString = employee.toString().concat("\n");
-            empBuffer.append(employeeDataString);
+    public void writeData(List<AddressBookData> addressBookDataList) {
+        StringBuffer stringBuffer = new StringBuffer();
+        addressBookDataList.forEach(bookData -> {
+            String employeeDataString = bookData.toString().concat("\n");
+            stringBuffer.append(employeeDataString);
         });
 
         try{
-            Files.write(Paths.get(ADDRESS_BOOK_FILE), empBuffer.toString().getBytes());
+            Files.write(Paths.get(ADDRESS_BOOK_FILE), stringBuffer.toString().getBytes());
         } catch(IOException e){
             e.printStackTrace();
         }
