@@ -3,6 +3,7 @@ package com.bridgelabz.addressbook;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class AddressBook {
@@ -128,6 +129,11 @@ public class AddressBook {
     public List<AddressBookData> readContactDataForGivenDateRange(LocalDate startDate, LocalDate endDate) {
         this.addressBookDataList = addressBookDB.getContactForGivenDateRange(startDate, endDate);
         return addressBookDataList;
+    }
+
+    //UC-19
+    public Map<String, Integer> readContactByCityOrState() {
+        return addressBookDB.getContactsByCityOrState();
     }
 
     public long countEntries(IOService ioService) {
