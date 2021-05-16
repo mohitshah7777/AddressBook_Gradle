@@ -1,5 +1,6 @@
 package com.bridgelabz.addressbook;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -122,6 +123,12 @@ public class AddressBook {
         return addressBookDataList.get(0).equals(getAddressBookData(name));
     }
     //END OF UC-17
+
+    //UC-18
+    public List<AddressBookData> readContactDataForGivenDateRange(LocalDate startDate, LocalDate endDate) {
+        this.addressBookDataList = addressBookDB.getContactForGivenDateRange(startDate, endDate);
+        return addressBookDataList;
+    }
 
     public long countEntries(IOService ioService) {
         if (ioService.equals(IOService.FILE_IO))
