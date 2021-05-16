@@ -3,6 +3,7 @@ package com.bridgelabz.addressbook;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -93,5 +94,16 @@ public class AddressBookTest {
         Map<String, Integer> contactByCityOrStateMap = addressBook.readContactByCityOrState();
         Assert.assertEquals((int) contactByCityOrStateMap.get("Pune"), 1);
         Assert.assertEquals((int) contactByCityOrStateMap.get("Madhya Pradesh"), 2);
+    }
+
+    //UC-20
+    @Test
+    public void givenNewContact_WhenAdded_ShouldSyncWithDB() {
+        AddressBook addressBook = new AddressBook();
+        addressBook.readAddressBookDataDB(DB_IO);
+        addressBook.addContactToDB(1,"Shreya Patil","Shreya", "Patil", "Hadapsar", "Pune", "Maharashtra", 411056,
+                "9988771122", "shreyapatil@gmail.com", Date.valueOf("2021-05-15"));
+        boolean result = addressBook.checkAddressBookInSyncWithDB("Shreya Patil");
+        Assert.assertTrue(result);
     }
 }
