@@ -56,8 +56,8 @@ public class AddressBookData {
 
     @Override
     public String toString(){
-        return "Address Book Data"+"(name "+name + "firstname = "+firstName+" lastname = "+lastName+" address = "+address+" city = "+
-                city+" state = "+state+" zip = "+zip+" phone number = "+phoneNumber+" email = "+email+" type"+type+"+ Date"+date+")";
+        return "Address Book Data"+"(name "+name + " firstname = "+firstName+" lastname = "+lastName+" address = "+address+" city = "+
+                city+" state = "+state+" zip = "+zip+" phone number = "+phoneNumber+" email = "+email+" type"+type+"+ Date"+date+")\n";
     }
 
     @Override

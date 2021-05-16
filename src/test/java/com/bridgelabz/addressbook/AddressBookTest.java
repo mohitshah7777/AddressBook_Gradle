@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.sql.Date;
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -105,5 +107,28 @@ public class AddressBookTest {
                 "9988771122", "shreyapatil@gmail.com", Date.valueOf("2021-05-15"));
         boolean result = addressBook.checkAddressBookInSyncWithDB("Shreya Patil");
         Assert.assertTrue(result);
+    }
+
+    //UC-21
+    @Test
+    public void givenContacts_WhenAddedToDB_ShouldMatchEmployeeEntries() {
+        AddressBookData[] addressBookArray = {
+                new AddressBookData(2,"Pooja Shah","Pooja", "Shah", "Mani Nagar",
+                        "Ahmedabad", "Gujarat", 320008, "9856231473",
+                        "poojashah@gmail.com", Date.valueOf("2021-05-16")),
+                new AddressBookData(3,"Mayuresh Tilkari","Mayuresh", "Tilkari",
+                        "Baner", "Pune", "Maharashtra", 411046, "7894231547",
+                        "mayureshtilkari@gmail.com", Date.valueOf("2019-04-21"))};
+        AddressBook addressBook = new AddressBook();
+        addressBook.readAddressBookDataDB(DB_IO);
+        Instant start = Instant.now();
+        addressBook.addDetails(Arrays.asList(addressBookArray));
+        Instant end = Instant.now();
+        System.out.println("Duration without thread : " + Duration.between(start, end));
+        Instant threadStart = Instant.now();
+        addressBook.addDetailsWithThreads(Arrays.asList(addressBookArray));
+        Instant threadEnd = Instant.now();
+        System.out.println("Duration with Thread : " + Duration.between(threadStart, threadEnd));
+        Assert.assertEquals(10, addressBook.countEntries(DB_IO));
     }
 }
