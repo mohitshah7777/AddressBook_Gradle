@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static com.bridgelabz.addressbook.AddressBook.IOService.*;
 
@@ -82,5 +83,15 @@ public class AddressBookTest {
         LocalDate endDate = LocalDate.now();
         List<AddressBookData> addressBookDataList = addressBook.readContactDataForGivenDateRange(startDate, endDate);
         Assert.assertEquals(3, addressBookDataList.size());
+    }
+
+    //UC-19
+    @Test
+    public void givenContacts_RetrieveNumberOfContacts_ByCityOrState() {
+        AddressBook addressBook = new AddressBook();
+        addressBook.readAddressBookDataDB(DB_IO);
+        Map<String, Integer> contactByCityOrStateMap = addressBook.readContactByCityOrState();
+        Assert.assertEquals((int) contactByCityOrStateMap.get("Pune"), 1);
+        Assert.assertEquals((int) contactByCityOrStateMap.get("Madhya Pradesh"), 2);
     }
 }
