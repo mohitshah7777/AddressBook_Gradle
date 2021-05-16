@@ -3,6 +3,7 @@ package com.bridgelabz.addressbook;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -67,9 +68,19 @@ public class AddressBookTest {
     public void givenNewPhoneNumberForPerson_WhenUpdatedUsingPreparedStatement_ShouldSyncWithDB() {
         AddressBook addressBook = new AddressBook();
         addressBook.readAddressBookDataDB(DB_IO);
-        addressBook.updateAddressBook("Mohit Shah", "1234567890");
+        addressBook.updateAddressBook("Mohit Shah", "456");
         boolean result = addressBook.checkAddressBookInSyncWithDB("Mohit Shah");
         Assert.assertTrue(result);
     }
 
+    //UC-18
+    @Test
+    public void givenDateRange_WhenRetrieved_ShouldMatchEmployeeCount() {
+        AddressBook addressBook = new AddressBook();
+        addressBook.readAddressBookDataDB(DB_IO);
+        LocalDate startDate = LocalDate.of(2019, 01, 1);
+        LocalDate endDate = LocalDate.now();
+        List<AddressBookData> addressBookDataList = addressBook.readContactDataForGivenDateRange(startDate, endDate);
+        Assert.assertEquals(3, addressBookDataList.size());
+    }
 }
